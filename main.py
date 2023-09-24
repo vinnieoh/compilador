@@ -1,5 +1,7 @@
 import re
 
+
+
 def prints():
     print("Test: 1")
     print("Test: 2")
@@ -40,15 +42,11 @@ def leitura_arquivos(code_test):
         case _:
             print("Valor Nao Encontrado!")
 
-           
-    
-    
+
     with open(caminho, 'r', encoding='utf-8') as f:
         code = f.read()
-    
         
     cleaned_code = re.sub(r'/\*[\s\S]*?\*/|//.*', '', code, flags=re.DOTALL)
-    
     
     return cleaned_code
    

@@ -1,12 +1,12 @@
 
 class TokenClass:
-    PALAVRA_RESERVADA = 0
-    OPERADOR = 0
-    DELIMITADOR = 0
-    CONSTANTE_TEXTO = 0
-    PONTO_FLUTUANTE = 0
-    CONSTANTE_INTEIRA = 0
-    IDENTIFICADOR = 0
+    PALAVRA_RESERVADA = r"(struct\b|if\b|int\b|else\b|while\b|do\b|for\b|\bfloat\b|double\b|char\b|long\b|short\b|break\b|continue\b|case\b|switch\b|default\b|void\b|return)"
+    OPERADOR = r"(==|!=|<=|>=|\|\||&&|\+=|-=|\*=|\=|--|\+\+|\+|\/|->|\*|\-|\||!|&|%|<|>)"
+    DELIMITADOR = r"\[|\]|\(|\)|\{|\}|\;|\,|\:"
+    CONSTANTE_TEXTO = r'\".*?\"'
+    PONTO_FLUTUANTE = r'(\d+\.\d+)'
+    CONSTANTE_INTEIRA = r"(\d+)(?![a-zA-Z])"
+    IDENTIFICADOR = r"([a-zA-Z_][a-zA-Z0-9_]*|main|printf)"
     
 
 tokenClass: TokenClass = TokenClass()
