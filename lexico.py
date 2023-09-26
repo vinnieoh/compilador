@@ -1,26 +1,26 @@
-import rule
-from tokens import Token
+from typing import List
+from tokens import Token, TokenClass
+import re
 
-class Lex:
-    def __init__(self, content: str, rules: list[rule.RulesInterface]):
-        self.rules = rules
-        self.content = content
+def tokenize_code(code: str) -> List[Token]:
+    
+    tokens = []
 
+    for line_num, line in enumerate(code.split('\n'), start=1):
+        line = re.sub(r'\s+', ' ', line.strip())
 
-    def next(self) -> Token:
-        
-        if not self.content:
-            return None
-        
-        for rule in self.rules:
-            match = rule.check_match(self.content)
-            print(f'matching rule {rule.__class__.__name__}: {match}') # DEBUG
-            
-            if not match:
-                continue
-            
-            endpos = match.span()[1]
-            self.content = self.content[endpos:].lstrip()
-            return rule.extract_token(match.group(0))
-
-        raise Exception(f'Lexical Error: symbol {self.content[0]} not recognized')
+        while line:
+            match = None
+            for token_class in TokenClass:
+                regex = token_class.value
+                match = re.match(regex, line)
+                if match:
+                    break
+            if match:
+                lexema = match.group(0)
+                token = Token(token_class, lexema)
+                tokens.append(token)
+                line = line[len(lexema):].lstrip()
+            else:
+                raise ValueError(f"Erro léxico na linha {line_num}: caractere inesperado: {line[0]!r}")
+    return tokens

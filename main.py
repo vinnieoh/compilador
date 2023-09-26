@@ -1,6 +1,5 @@
 import re
-from lexico import Lex
-import rule
+from lexico import tokenize_code
 
 
 def prints():
@@ -59,20 +58,10 @@ def main():
     
     content = leitura_arquivos(num)
     
-    lex = Lex(content, [rule.ConstanteInteiraRule(), 
-                     rule.ConstateTextoRule(), 
-                     rule.DelimitadorRole(), 
-                     rule.IdentificadorRule(),
-                     rule.OperadorRule(),
-                     rule.PalavrasReservadasRule(),
-                     rule.PontoFlutuanteRule()])
-    
-    
-    while True:
-        token_atual = lex.next()
-        if token_atual is None:
-            break
-        print(f'\ntoken extraido: {token_atual}\n\n\n')
+    values = tokenize_code(content)
+
+    for token in values:
+        print(token)
     
 
 if __name__ == "__main__":
