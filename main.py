@@ -1,5 +1,6 @@
 import re
-
+from lexico import Lex
+import rule
 
 
 def prints():
@@ -16,7 +17,6 @@ def prints():
     
 
 def leitura_arquivos(code_test):
-    
     
     match code_test:
         case 1:
@@ -40,7 +40,7 @@ def leitura_arquivos(code_test):
         case 10:
             caminho = './test_code/teste-erro2.c'
         case _:
-            print("Valor Nao Encontrado!")
+            raise "Valor Nao Encontrado!"
 
 
     with open(caminho, 'r', encoding='utf-8') as f:
@@ -57,9 +57,22 @@ def main():
     prints()
     num = int(input('Digite o numuro do arquivo: '))
     
-    code = leitura_arquivos(num)
-   
-    print(code)
+    content = leitura_arquivos(num)
+    
+    lex = Lex(content, [rule.ConstanteInteiraRule(), 
+                     rule.ConstateTextoRule(), 
+                     rule.DelimitadorRole(), 
+                     rule.IdentificadorRule(),
+                     rule.OperadorRule(),
+                     rule.PalavrasReservadasRule(),
+                     rule.PontoFlutuanteRule()])
+    
+    
+    while True:
+        token_atual = lex.next()
+        if token_atual is None:
+            break
+        print(f'\ntoken extraido: {token_atual}\n\n\n')
     
 
 if __name__ == "__main__":
