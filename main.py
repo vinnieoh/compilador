@@ -1,5 +1,5 @@
 import re
-from lexico import tokenize_code
+from analisado_lexico import tokenize_code
 
 
 def prints():
