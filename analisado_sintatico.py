@@ -1,4 +1,4 @@
-from tokens.tokens import TokenSintatico, TokenClassSintatico
+from tokens.tokens_sintatico import TokenSintatico, TokenClassSintatico
 import re
 
 # Corrigindo a ordem das funções
