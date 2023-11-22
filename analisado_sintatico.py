@@ -15,51 +15,51 @@ def analisar_sintaxe(codigo):
     tokens = analisar(codigo)
 
     def analisar_parte_constantes():
-        casar(TokenClassSintatico.PALAVRA_RESERVADA, "CONST", "analisar_parte_constantes")
+        check(TokenClassSintatico.PALAVRA_RESERVADA, "CONST", "analisar_parte_constantes")
         while verificar(TokenClassSintatico.IDENT):
             identificador = proximo_token()
-            casar(TokenClassSintatico.OPERADOR, "=")
+            check(TokenClassSintatico.OPERADOR, "=")
             valor = proximo_token()
-            casar(TokenClassSintatico.DELIMITADOR, ";")
+            check(TokenClassSintatico.DELIMITADOR, ";")
             print(f"Constante: {identificador.valor} = {valor.valor}")
 
     def analisar_parte_variaveis():
-        casar(TokenClassSintatico.PALAVRA_RESERVADA, "VAR", "analisar_parte_variaveis")
+        check(TokenClassSintatico.PALAVRA_RESERVADA, "VAR", "analisar_parte_variaveis")
         while verificar(TokenClassSintatico.IDENT):
             identificadores = [proximo_token()]
             while verificar(TokenClassSintatico.DELIMITADOR, ","):
-                casar(TokenClassSintatico.DELIMITADOR, ",")
+                check(TokenClassSintatico.DELIMITADOR, ",")
                 identificadores.append(proximo_token())
-            casar(TokenClassSintatico.DELIMITADOR, ";")
+            check(TokenClassSintatico.DELIMITADOR, ";")
             for identificador in identificadores:
                 print(f"Variável: {identificador.valor}")
 
     def analisar_parte_procedimentos():
-        casar(TokenClassSintatico.PALAVRA_RESERVADA, "PROCEDURE", "analisar_parte_procedimentos")
+        check(TokenClassSintatico.PALAVRA_RESERVADA, "PROCEDURE", "analisar_parte_procedimentos")
         while verificar(TokenClassSintatico.IDENT):
             identificador = proximo_token()
-            casar(TokenClassSintatico.DELIMITADOR, ";")
+            check(TokenClassSintatico.DELIMITADOR, ";")
             print(f"Procedimento: {identificador.valor}")
 
     def analisar_parte_instrucao():
-        casar(TokenClassSintatico.PALAVRA_RESERVADA, "BEGIN", "analisar_parte_instrucao")
+        check(TokenClassSintatico.PALAVRA_RESERVADA, "BEGIN", "analisar_parte_instrucao")
         while not verificar(TokenClassSintatico.PALAVRA_RESERVADA, "END") and not fim_de_arquivo():
             # Implemente aqui a lógica para analisar as instruções dentro do bloco BEGIN...END
             proximo_token()
-        casar(TokenClassSintatico.PALAVRA_RESERVADA, "END")
+        check(TokenClassSintatico.PALAVRA_RESERVADA, "END")
         print("Análise da parte de instrução concluída.")
 
     def analisar_programa():
-        casar(TokenClassSintatico.PALAVRA_RESERVADA, "CONST", "analisar_programa")
+        check(TokenClassSintatico.PALAVRA_RESERVADA, "CONST", "analisar_programa")
         analisar_parte_constantes()
-        casar(TokenClassSintatico.PALAVRA_RESERVADA, "VAR", "analisar_programa")
+        check(TokenClassSintatico.PALAVRA_RESERVADA, "VAR", "analisar_programa")
         analisar_parte_variaveis()
-        casar(TokenClassSintatico.PALAVRA_RESERVADA, "PROCEDURE", "analisar_programa")
+        check(TokenClassSintatico.PALAVRA_RESERVADA, "PROCEDURE", "analisar_programa")
         analisar_parte_procedimentos()
-        casar(TokenClassSintatico.PALAVRA_RESERVADA, "BEGIN", "analisar_programa")
+        check(TokenClassSintatico.PALAVRA_RESERVADA, "BEGIN", "analisar_programa")
         analisar_parte_instrucao()
-        casar(TokenClassSintatico.PALAVRA_RESERVADA, "END")
-        casar(TokenClassSintatico.DELIMITADOR, ".")
+        check(TokenClassSintatico.PALAVRA_RESERVADA, "END")
+        check(TokenClassSintatico.DELIMITADOR, ".")
 
     analisar_programa()
 
@@ -83,7 +83,7 @@ def verificar(classe_esperada, valor_esperado=None):
             return True
     return False
 
-def casar(classe_token_esperada, valor_token_esperado=None, nome_funcao=None):
+def check(classe_token_esperada, valor_token_esperado=None, nome_funcao=None):
     global token_anterior
     if not verificar(classe_token_esperada, valor_token_esperado):
         token = None if fim_de_arquivo() else tokens[indice_token]
