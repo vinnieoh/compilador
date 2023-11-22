@@ -1,5 +1,5 @@
 from typing import List
-from tokens import Token, TokenClass
+from tokens.tokens import Token, TokenClass
 import re
 
 def tokenize_code(code: str) -> List[Token]:

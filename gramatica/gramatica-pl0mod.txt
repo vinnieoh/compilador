@@ -1,0 +1,57 @@
+<program>            --> <block>"."
+
+<block>              --> <constants>? <variables>? <procedures>? <statement>?
+
+<constants>          --> "CONST" <constdecl> ";"
+
+<constdecl>          --> <constdef> "," <constdecl>
+                       | <constdef>
+
+<constdef>           --> <Ident> "=" <Number>
+
+<variables>          --> "VAR" <vardecl> ";"
+
+<vardecl>            --> <Ident> "," <vardecl>
+                       | <Ident>
+
+<procedures>         --> <procdecl> <procedures>
+
+<procdecl>           --> "PROCEDURE" <Ident> ";" <block> ";"
+
+<statement>          --> <Ident> "<-" <expression>
+                       | "CALL" <Ident>
+                       | "BEGIN" <compound statement> "END"
+                       | "IF" "NOT"? <condition> "THEN" <statement>
+                       | "WHILE" "NOT"? <condition> "DO" <statement>
+                       | "PRINT" <expression>
+
+<compound statement> --> (<statement> ";")*
+
+<condition>          --> "ODD" <expression>
+                       | "EVEN" <expression>
+                       | <expression> <relation> <expression>
+
+<relation>           --> "="
+                       | "#"
+                       | "<"
+                       | "<="
+                       | ">"
+                       | ">="
+                       | "/?"
+
+<expression>         --> <sign>? <term> <terms>?
+
+<sign>               --> "+"
+                       | "-"
+
+<terms>              --> "+" <term>
+                       | "-" <term>
+
+<term>               --> <factor> <factors>?
+
+<factors>            --> "/" <factor>
+                       | "*" <factor>
+
+<factor>             --> <Ident>
+                       | <Number>
+                       | "(" <expression> ")"
