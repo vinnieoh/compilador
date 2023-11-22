@@ -1,7 +1,6 @@
 from tokens.tokens_sintatico import TokenSintatico, TokenClassSintatico
 import re
 
-# Corrigindo a ordem das funções
 
 def analisar(codigo):
     padroes = '|'.join(f'(?P<{t}> {p})' for t, p in TokenClassSintatico.__members__.items())
@@ -63,7 +62,7 @@ def analisar_sintaxe(codigo):
 
     analisar_programa()
 
-# FUNÇÕES AUXILIARES ***************************
+# FUNÇÕES AUXILIARES 
 
 def erro(mensagem, token=None):
     if token is None:
