@@ -1,13 +1,14 @@
-from typing import List
-from tokens.tokens import Token, TokenClass
 import re
+from meu_token import TokenClass, Token
 
-def tokenize_code(code: str) -> List[Token]:
-    
+def analisado_lexico(code):
     tokens = []
+    lines = code.split('\n')
+    line_num = 1
 
-    for line_num, line in enumerate(code.split('\n'), start=1):
+    for line in lines:
         line = re.sub(r'\s+', ' ', line.strip())
+        column = 1
 
         while line:
             match = None
@@ -15,12 +16,15 @@ def tokenize_code(code: str) -> List[Token]:
                 regex = token_class.value
                 match = re.match(regex, line)
                 if match:
+                    lexeme = match.group(0)
+                    token = Token(token_class, lexeme, line_num, column)
+                    tokens.append(token)
+                    line = line[len(lexeme):].lstrip()
+                    column += len(lexeme)
                     break
-            if match:
-                lexema = match.group(0)
-                token = Token(token_class, lexema)
-                tokens.append(token)
-                line = line[len(lexema):].lstrip()
-            else:
-                raise ValueError(f"Erro léxico na linha {line_num}: caractere inesperado: {line[0]!r}")
+
+            if match is None:
+                raise SyntaxError(f"Erro léxico na linha {line_num}, coluna {column}: caractere inesperado: {line[0]!r}")
+
+        line_num += 1
     return tokens
