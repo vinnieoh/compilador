@@ -12,7 +12,7 @@ Este projeto é organizado da seguinte maneira:
 - `analisador_lexico.py`: Módulo responsável pela análise léxica, onde o código PL/0 é quebrado em tokens.
 - `analisador_sintatico.py`: Módulo que realiza a análise sintática e a tradução do código PL/0 para Python.
 - `funcoes_auxiliares.py`: Conjunto de funções auxiliares usadas nos processos de análise léxica e sintática.
-- `gramatica/`: Diretório contendo exemplos de códigos PL/0 para teste.
+- `gramatica/`: Diretório contendo exemplos de códigos PL/0 para teste e a gramatica da linguagem.
 - `codigo_traduzido/`: Diretório onde os códigos traduzidos para Python são salvos automaticamente.
 - `Dockerfile`: Arquivo para criação de um container Docker, garantindo um ambiente consistente para a execução do compilador.
 - `README.md`: Documentação do projeto.
