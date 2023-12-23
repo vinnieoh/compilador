@@ -1,4 +1,4 @@
-# compilador:  Trabalho desenvolvido na matéria de compiladores na Universidade Federal do Tocantins, curso ciências da computação 
+# compilador:  Trabalho desenvolvido na disciplina de compiladores na Universidade Federal do Tocantins, curso ciências da computação 
 
 ## Descrição
 
